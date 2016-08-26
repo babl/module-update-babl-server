@@ -1,1 +1,8 @@
 id: babl/update-babl-server
+mem: 32
+container:
+  volumes:
+    -
+      hostPath: /var/run/docker.sock
+      containerPath: /var/run/docker.sock
+      mode: RW
