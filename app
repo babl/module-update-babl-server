@@ -7,7 +7,7 @@ if [ -z $docker_image ]; then
 fi
 
 babl_server_path=$(mktemp -t "babl-server.XXXXXXXXXX")
-cat > $babl_server_path
+cat | gunzip > $babl_server_path
 chmod +x $babl_server_path
 
 tmp_docker_image=${docker_image}.tmp$$
@@ -21,5 +21,5 @@ bsv=$(docker run --rm --entrypoint=/bin/sh $tmp_docker_image -c "babl-server -pl
 new_docker_image=${docker_image}.bs-${bsv}
 docker tag $tmp_docker_image $new_docker_image
 docker rmi $tmp_docker_image > /dev/null
-docker push $new_docker_image
+docker push $new_docker_image > /dev/null
 echo $new_docker_image
